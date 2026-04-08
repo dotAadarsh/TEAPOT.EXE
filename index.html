@@ -1,0 +1,1263 @@
+/*
+  bro built a whole startup
+  just to NOT make coffee 💀
+
+  features:
+  - rejects you instantly
+  - looks expensive
+  - does nothing
+
+  investors: 🔥🔥🔥
+  usefulness: 0%
+
+  status: 418 (permanently cooked)
+*/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TEAPOT.EXE — Enterprise Teapot Infrastructure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1208;
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --rust: #b84c2a;
+    --steam: #e8e0d0;
+    --muted: #8a7a60;
+    --card-bg: #faf6ee;
+    --border: #d4c9b0;
+    --green: #2a5c3f;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  #cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.6;
+  }
+  body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 20px; height: 20px; background: var(--rust); }
+  body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56px; height: 56px; opacity: 0.3; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 15px; font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo .badge {
+    background: var(--rust); color: #fff;
+    font-size: 9px; padding: 2px 7px; border-radius: 2px;
+    letter-spacing: 0.1em; font-weight: 500;
+  }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    letter-spacing: 0.06em; font-weight: 700; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink); color: var(--cream);
+    border: none; padding: 10px 24px;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; cursor: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: var(--rust); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    gap: 40px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 5.5vw, 78px);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  h1 em { color: var(--rust); font-style: italic; }
+  .hero-sub {
+    font-size: 17px; line-height: 1.75; color: var(--muted);
+    max-width: 480px; margin-bottom: 40px;
+    font-weight: 400;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 20px; margin-bottom: 48px; }
+  .btn-primary {
+    background: var(--ink); color: var(--cream);
+    border: 2px solid var(--ink); padding: 14px 32px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.08em; cursor: none; display: inline-block;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--rust); border-color: var(--rust); }
+  .btn-secondary {
+    color: var(--ink); text-decoration: none;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.08em; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border); padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+  .hero-stats {
+    display: flex; gap: 40px;
+  }
+  .stat { }
+  .stat-num {
+    font-family: var(--font-display); font-size: 32px; color: var(--ink);
+    display: block; line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; display: block;
+  }
+
+  /* 3D CANVAS HERO */
+  .hero-canvas-wrap {
+    position: relative; height: 600px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #hero-canvas {
+    width: 100%; height: 100%;
+    border-radius: 4px;
+  }
+  .canvas-badge {
+    position: absolute; bottom: 24px; left: 24px;
+    background: var(--ink); color: var(--cream);
+    font-family: var(--font-mono); font-size: 10px;
+    padding: 8px 14px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf7a; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+  .canvas-status {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+    text-align: right; letter-spacing: 0.08em;
+  }
+  .status-code {
+    font-size: 32px; font-weight: 500; color: var(--rust);
+    display: block; line-height: 1; margin-bottom: 2px;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--ink); color: var(--cream);
+    padding: 12px 0; overflow: hidden;
+    border-top: 1px solid #333; border-bottom: 1px solid #333;
+  }
+  .ticker-inner {
+    display: flex; gap: 80px;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker-item {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+  }
+  .ticker-item::before { content: '☕'; color: var(--rust); }
+  .ticker-item::after { content: '✕'; color: #555; }
+
+  /* SECTION SHARED */
+  section { padding: 100px 48px; }
+  .section-eyebrow {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.1; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  h2 em { color: var(--rust); font-style: italic; }
+
+  /* FEATURES */
+  .features { background: var(--ink); color: var(--cream); }
+  .features h2 { color: var(--cream); }
+  .features .section-eyebrow { color: var(--gold-light); }
+  .features .section-eyebrow::before { background: var(--gold-light); }
+  .features-header { margin-bottom: 72px; }
+  .features-header p { font-size: 17px; color: #8a7a60; line-height: 1.7; max-width: 540px; margin-top: 16px; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: #2a2010;
+  }
+  .feature-card {
+    background: var(--ink); padding: 40px 36px;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .feature-card:hover { background: #1e1508; }
+  .feature-card::after {
+    content: ''; position: absolute; bottom: 0; left: 36px; right: 36px;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .feature-card:hover::after { opacity: 1; }
+  .feature-icon {
+    font-size: 28px; margin-bottom: 20px; display: block;
+    filter: grayscale(0.3);
+  }
+  .feature-num {
+    position: absolute; top: 36px; right: 36px;
+    font-family: var(--font-mono); font-size: 11px; color: #3a2a10;
+    font-weight: 500;
+  }
+  .feature-title {
+    font-family: var(--font-display); font-size: 22px; color: var(--cream);
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .feature-desc {
+    font-size: 14px; color: #7a6a50; line-height: 1.75; font-weight: 400;
+  }
+  .feature-tag {
+    display: inline-block; margin-top: 20px;
+    font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid #3a2a10; padding: 4px 10px;
+  }
+
+  /* HOW IT WORKS */
+  .how { position: relative; }
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+  .how-header { text-align: center; margin-bottom: 80px; }
+  .how-header p { font-size: 16px; color: var(--muted); margin-top: 16px; }
+  .steps {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 0; position: relative;
+  }
+  .steps::before {
+    content: ''; position: absolute;
+    top: 32px; left: 12.5%; right: 12.5%;
+    height: 1px; background: var(--border);
+  }
+  .step { padding: 0 24px; text-align: center; }
+  .step-num {
+    width: 64px; height: 64px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-family: var(--font-mono); font-size: 13px; color: var(--muted);
+    font-weight: 500; position: relative; z-index: 1;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .step:hover .step-num { border-color: var(--gold); color: var(--gold); }
+  .step-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 10px; }
+  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* RFC SECTION */
+  .rfc {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .rfc-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .rfc-terminal {
+    background: #0e0a05; border-radius: 4px;
+    overflow: hidden; font-family: var(--font-mono);
+  }
+  .terminal-bar {
+    background: #1a1208; padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid #2a1e10;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #b84c2a; } .dot.y { background: #c9a84c; } .dot.g { background: #4caf7a; }
+  .terminal-title { font-size: 10px; color: #554433; margin-left: auto; letter-spacing: 0.1em; }
+  .terminal-body { padding: 24px; font-size: 12px; line-height: 1.9; }
+  .t-comment { color: #554433; }
+  .t-method { color: var(--gold); }
+  .t-path { color: var(--cream); }
+  .t-header { color: #8a9a7a; }
+  .t-value { color: #c9a96e; }
+  .t-status { color: var(--rust); font-size: 16px; font-weight: 500; letter-spacing: 0.05em; }
+  .t-body { color: #8a7a60; margin-top: 8px; }
+  .rfc-text h2 { margin-bottom: 20px; }
+  .rfc-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+  .rfc-quote {
+    border-left: 3px solid var(--gold); padding-left: 20px; margin: 24px 0;
+    font-family: var(--font-display); font-size: 19px; line-height: 1.5;
+    color: var(--ink); font-style: italic;
+  }
+  .rfc-meta {
+    font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-top: 24px;
+    display: flex; gap: 24px;
+  }
+  .rfc-meta span { display: flex; flex-direction: column; gap: 4px; }
+  .rfc-meta strong { color: var(--ink); font-size: 12px; }
+
+  /* PRICING */
+  .pricing { background: var(--ink); }
+  .pricing h2 { color: var(--cream); }
+  .pricing .section-eyebrow { color: var(--gold-light); }
+  .pricing .section-eyebrow::before { background: var(--gold-light); }
+  .pricing-header { text-align: center; margin-bottom: 64px; }
+  .pricing-header p { color: #7a6a50; margin-top: 12px; font-size: 15px; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #2a2010; max-width: 1000px; margin: 0 auto; }
+  .plan {
+    background: var(--ink); padding: 40px 36px;
+    display: flex; flex-direction: column;
+    transition: background 0.3s;
+  }
+  .plan:hover { background: #111008; }
+  .plan.featured {
+    background: #140e04;
+    position: relative;
+    outline: 1.5px solid var(--gold);
+    outline-offset: -1px;
+  }
+  .plan-badge {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--ink); background: var(--gold);
+    padding: 3px 10px; display: inline-block; margin-bottom: 20px; align-self: flex-start;
+  }
+  .plan-name {
+    font-family: var(--font-display); font-size: 28px; color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .plan-tagline { font-family: var(--font-mono); font-size: 11px; color: #5a4a30; margin-bottom: 28px; }
+  .plan-price {
+    font-family: var(--font-display); font-size: 56px; color: var(--cream);
+    line-height: 1; margin-bottom: 4px;
+  }
+  .plan-price span { font-size: 20px; color: #5a4a30; }
+  .plan-period { font-family: var(--font-mono); font-size: 10px; color: #5a4a30; margin-bottom: 32px; }
+  .plan-features { list-style: none; flex: 1; margin-bottom: 32px; }
+  .plan-features li {
+    font-size: 13px; color: #8a7a60; padding: 8px 0;
+    border-bottom: 1px solid #1e1508;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .plan-features li::before { content: '✓'; color: var(--gold); font-family: var(--font-mono); font-size: 11px; flex-shrink: 0; }
+  .plan-features li.no::before { content: '✕'; color: #3a2a10; }
+  .plan-features li.no { color: #3a2a10; }
+  .plan-btn {
+    background: transparent; border: 1.5px solid #3a2a10;
+    color: #5a4a30; padding: 12px; cursor: none;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; transition: all 0.2s;
+  }
+  .plan-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .plan.featured .plan-btn {
+    background: var(--gold); border-color: var(--gold); color: var(--ink);
+  }
+  .plan.featured .plan-btn:hover { background: var(--gold-light); }
+
+  /* TESTIMONIALS */
+  .testimonials { }
+  .testimonials-header { text-align: center; margin-bottom: 64px; }
+  .testimonials-header p { color: var(--muted); margin-top: 12px; font-size: 15px; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .testi-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    padding: 32px; position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .testi-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(26,18,8,0.08); }
+  .testi-card::before {
+    content: '"';
+    position: absolute; top: 20px; right: 28px;
+    font-family: var(--font-display); font-size: 80px;
+    color: var(--border); line-height: 1;
+  }
+  .testi-text { font-size: 15px; line-height: 1.75; color: var(--ink); margin-bottom: 24px; position: relative; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--border); display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .author-name { font-family: var(--font-display); font-size: 15px; display: block; }
+  .author-title { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.08em; display: block; margin-top: 2px; }
+  .testi-stars { font-size: 11px; color: var(--gold); margin-bottom: 12px; letter-spacing: 2px; }
+
+  /* FOOTER */
+  footer {
+    background: #0e0a05; color: var(--cream);
+    padding: 80px 48px 40px;
+  }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
+  .footer-brand { }
+  .footer-logo { font-family: var(--font-mono); font-size: 16px; margin-bottom: 12px; color: var(--cream); }
+  .footer-tagline { font-size: 13px; color: #5a4a30; line-height: 1.7; max-width: 260px; margin-bottom: 20px; }
+  .footer-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid #2a1e10; padding: 6px 14px;
+    font-family: var(--font-mono); font-size: 9px; color: #5a4a30;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .footer-col h4 { font-family: var(--font-mono); font-size: 10px; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+  .footer-col a { display: block; color: #5a4a30; text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid #1e1508; padding-top: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px; color: #3a2a10;
+    letter-spacing: 0.08em;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* STATUS BAR */
+  .status-bar {
+    background: var(--green); color: #fff;
+    text-align: center; padding: 10px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .status-bar a { color: #a0e0c0; }
+
+  /* ENTERPRISE LOGOS */
+  .logos { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 48px; }
+  .logos-label { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 28px; }
+  .logos-row { display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap; }
+  .fake-logo {
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+    color: var(--border); letter-spacing: 0.1em; text-transform: uppercase;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  .fake-logo:hover { opacity: 1; color: var(--muted); }
+
+  /* INTERACT HINT */
+  .interact-hint {
+    position: absolute; bottom: 80px; right: 24px;
+    background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+    padding: 8px 14px;
+    font-family: var(--font-mono); font-size: 9px; color: var(--gold);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    animation: fadeHint 3s ease-in-out infinite;
+  }
+  @keyframes fadeHint { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    nav { padding: 16px 24px; }
+    section { padding: 60px 24px; }
+    .rfc-inner { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  ☕ COFFEE BREWING NOT SUPPORTED IN THIS REGION &nbsp;·&nbsp; RFC 2324 COMPLIANT &nbsp;·&nbsp; <a href="#">View Status Page →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    TEAPOT.EXE
+    <span class="badge">v4.18.0</span>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">Protocol</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#testimonials">Clients</a>
+  </div>
+  <button class="nav-cta" onclick="window.open('https://tools.ietf.org/html/rfc2324','_blank')">Read the RFC →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">HTCPCP/1.0 Compliant Infrastructure</div>
+    <h1>The <em>enterprise</em> teapot that still won't brew coffee.</h1>
+    <p class="hero-sub">
+      TEAPOT.EXE delivers mission-critical 418 responses at global scale. 
+      Built on RFC 2324. Maintained by nobody. Useful to no one.
+    </p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Get Started Free</a>
+      <a href="#how" class="btn-secondary">How it works ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">418</span>
+        <span class="stat-label">HTTP Status Code</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">0</span>
+        <span class="stat-label">Coffees Brewed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Cups of Tea</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-canvas-wrap">
+    <canvas id="hero-canvas"></canvas>
+    <div class="canvas-badge">
+      <span class="live-dot"></span>
+      LIVE TEAPOT INSTANCE
+    </div>
+    <div class="canvas-status">
+      <span class="status-code">418</span>
+      I'm a Teapot
+    </div>
+    <div class="interact-hint">← drag · scroll</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker-inner"></div>
+</div>
+
+<!-- LOGOS -->
+<div class="logos">
+  <div class="logos-label">Trusted by teams who should be using a coffee machine</div>
+  <div class="logos-row">
+    <span class="fake-logo">BREWCORP</span>
+    <span class="fake-logo">HTTPFOLIO</span>
+    <span class="fake-logo">KETTLEBASE</span>
+    <span class="fake-logo">RFCVENTURES</span>
+    <span class="fake-logo">STARBYTES</span>
+    <span class="fake-logo">MASINTER.IO</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header reveal">
+    <div class="section-eyebrow">Core Capabilities</div>
+    <h2>Everything you need.<br><em>None of it useful.</em></h2>
+    <p>Our platform delivers a comprehensive suite of teapot-centric primitives, purpose-built for modern distributed 418 architectures.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <span class="feature-num">01</span>
+      <span class="feature-icon">🫖</span>
+      <div class="feature-title">Ceramic-First Architecture</div>
+      <div class="feature-desc">Our proprietary CFA™ ensures your teapot maintains structural integrity under all request loads. Short. Stout. Uncompromising.</div>
+      <span class="feature-tag">Core Infrastructure</span>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">02</span>
+      <span class="feature-icon">☕</span>
+      <div class="feature-title">Zero Coffee Guarantee™</div>
+      <div class="feature-desc">We pledge, contractually and spiritually, that your instance will never, under any circumstance, produce a single drop of coffee.</div>
+      <span class="feature-tag">Compliance</span>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">03</span>
+      <span class="feature-icon">🌊</span>
+      <div class="feature-title">Steam Streaming API</div>
+      <div class="feature-desc">Real-time server-sent steam events. Monitor your teapot's boil status with sub-millisecond latency across 3 global steam regions.</div>
+      <span class="feature-tag">Real-time</span>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">04</span>
+      <span class="feature-icon">📡</span>
+      <div class="feature-title">HTCPCP/1.0 Native</div>
+      <div class="feature-desc">Full protocol support for Hyper Text Coffee Pot Control Protocol. Send BREW requests all you want. We'll still return 418.</div>
+      <span class="feature-tag">Protocol</span>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">05</span>
+      <span class="feature-icon">📊</span>
+      <div class="feature-title">Uselessness Analytics</div>
+      <div class="feature-desc">Track exactly how useless your teapot is in real time. Dashboards. Funnels. Cohorts. All measuring nothing of value.</div>
+      <span class="feature-tag">Observability</span>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">06</span>
+      <span class="feature-icon">🔐</span>
+      <div class="feature-title">SOC 2 Teapot Certified</div>
+      <div class="feature-desc">We hired a firm to audit our teapot. They confirmed it is, in fact, a teapot. Certificate available upon request. It's very official.</div>
+      <span class="feature-tag">Security</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-header reveal">
+      <div class="section-eyebrow">The Protocol</div>
+      <h2>How <em>TEAPOT.EXE</em> works</h2>
+      <p>Four elegant steps. Zero useful outcomes.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Send a BREW request</div>
+        <div class="step-desc">Make a POST /brew with Content-Type: message/coffeemaker to our global endpoints.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">We check the vessel</div>
+        <div class="step-desc">Our distributed vessel-detection layer confirms you're asking a teapot to brew coffee. Correct.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">We refuse</div>
+        <div class="step-desc">A 418 response is issued with body: "I'm a teapot." This is the entirety of our product.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">You remain caffeinated</div>
+        <div class="step-desc">We recommend seeking out a coffee machine. We're not one. We never will be. Thank you for using TEAPOT.EXE.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RFC SECTION -->
+<section class="rfc">
+  <div class="rfc-inner">
+    <div class="rfc-terminal reveal">
+      <div class="terminal-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="terminal-title">TEAPOT.EXE — live instance</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-comment"># HTCPCP/1.0 request trace</div>
+        <div style="margin-top:12px;">
+          <span class="t-method">BREW</span> <span class="t-path">/coffee HTTP/1.1</span>
+        </div>
+        <div><span class="t-header">Host:</span> <span class="t-value">pot.teapot.exe</span></div>
+        <div><span class="t-header">Content-Type:</span> <span class="t-value">message/coffeemaker</span></div>
+        <div><span class="t-header">Accept-Additions:</span> <span class="t-value">Sugar; Cream</span></div>
+        <div style="margin-top:16px;color:#2a1e10;">——————————————————</div>
+        <div style="margin-top:12px;" class="t-status">HTTP/1.1 418 I'm a Teapot</div>
+        <div><span class="t-header">Content-Type:</span> <span class="t-value">text/plain</span></div>
+        <div><span class="t-header">X-Teapot-Type:</span> <span class="t-value">short, stout</span></div>
+        <div><span class="t-header">X-Coffee-Support:</span> <span class="t-value">false</span></div>
+        <div><span class="t-header">Retry-With:</span> <span class="t-value">a coffee machine</span></div>
+        <div class="t-body" style="margin-top:12px;">
+          This server is a teapot.<br>
+          The requested entity body<br>
+          is short and stout.<br>
+          Please tip me over.
+        </div>
+      </div>
+    </div>
+    <div class="rfc-text reveal">
+      <div class="section-eyebrow">RFC 2324 · April 1, 1998</div>
+      <h2>A protocol born on <em>April Fool's</em> Day.</h2>
+      <p>
+        In 1998, Larry Masinter authored the Hyper Text Coffee Pot Control Protocol — 
+        a fully specified, technically rigorous IETF RFC for controlling, monitoring, 
+        and diagnosing coffee pots over IP networks.
+      </p>
+      <div class="rfc-quote">
+        "Any attempt to brew coffee with a teapot should result in the error code '418 I'm a Teapot'. The resulting entity body MAY be short and stout."
+      </div>
+      <p>
+        It remains one of the most beloved documents in internet history. And TEAPOT.EXE 
+        is its faithful, useless, enterprise-grade implementation.
+      </p>
+      <div class="rfc-meta">
+        <span><strong>Larry Masinter</strong>Author</span>
+        <span><strong>April 1, 1998</strong>Published</span>
+        <span><strong>IETF RFC 2324</strong>Document</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-header reveal">
+    <div class="section-eyebrow">Pricing</div>
+    <h2>Simple, <em>transparent</em> pricing</h2>
+    <p>For teams that are serious about not brewing coffee.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="plan">
+      <div class="plan-name">Kettle</div>
+      <div class="plan-tagline">// for hobbyists</div>
+      <div class="plan-price">$0<span>/mo</span></div>
+      <div class="plan-period">Forever free. Because what would we charge for.</div>
+      <ul class="plan-features">
+        <li>1 teapot instance</li>
+        <li>Unlimited 418 responses</li>
+        <li>Basic steam monitoring</li>
+        <li>RFC 2324 compliance</li>
+        <li class="no">Multi-region teapots</li>
+        <li class="no">Teapot analytics</li>
+        <li class="no">SOC 2 certificate PDF</li>
+      </ul>
+      <button class="plan-btn">Start for free →</button>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">Most Useless</div>
+      <div class="plan-name">Caddy</div>
+      <div class="plan-tagline">// for professionals</div>
+      <div class="plan-price">$49<span>/mo</span></div>
+      <div class="plan-period">Per teapot. Billed in tears.</div>
+      <ul class="plan-features">
+        <li>Unlimited teapot instances</li>
+        <li>Geo-distributed 418 fabric</li>
+        <li>Real-time steam dashboards</li>
+        <li>BREW request logging</li>
+        <li>Priority refusal SLA (99.9%)</li>
+        <li>Teapot cohort analytics</li>
+        <li class="no">SOC 2 certificate PDF</li>
+      </ul>
+      <button class="plan-btn">Start 14-day trial →</button>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Samovar</div>
+      <div class="plan-tagline">// for enterprises</div>
+      <div class="plan-price">$∞<span>/mo</span></div>
+      <div class="plan-period">Contact sales. We will also refuse coffee.</div>
+      <ul class="plan-features">
+        <li>Everything in Caddy</li>
+        <li>Private teapot cloud</li>
+        <li>Dedicated refusal manager</li>
+        <li>Custom 418 response bodies</li>
+        <li>HIPAA-compliant teapots</li>
+        <li>SOC 2 certificate PDF (framed)</li>
+        <li>Quarterly tea ceremony</li>
+      </ul>
+      <button class="plan-btn">Contact sales →</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-header reveal">
+    <div class="section-eyebrow">Client Testimonials</div>
+    <h2>Loved by developers.<br><em>Ignored by coffee lovers.</em></h2>
+    <p>Don't take our word for it. Take the word of people we made up.</p>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">
+        "We migrated our entire coffee infrastructure to TEAPOT.EXE and saved $0. 
+        We also now have no coffee. But the 418 responses are very fast."
+      </p>
+      <div class="testi-author">
+        <div class="author-avatar">☕</div>
+        <div>
+          <span class="author-name">Arabica Roastwell</span>
+          <span class="author-title">VP of Hot Liquids, BrewCorp</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">
+        "I asked my lawyer if a teapot SaaS was something I should be paying for. 
+        He said no. I subscribed to the Enterprise tier anyway. Worth it for the framed certificate."
+      </p>
+      <div class="testi-author">
+        <div class="author-avatar">⚖️</div>
+        <div>
+          <span class="author-name">Benedict Steepsworth</span>
+          <span class="author-title">Chief Compliance Officer, RFC Ventures</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">
+        "Finally, an HTTP status code with its own SaaS. I showed this to Larry Masinter's 
+        Wikipedia page and I think he would have smiled. He's still alive, I just talk to his page."
+      </p>
+      <div class="testi-author">
+        <div class="author-avatar">🫖</div>
+        <div>
+          <span class="author-name">Darjeeling Xu</span>
+          <span class="author-title">Senior Tea Engineer, Kettlebase Inc.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">TEAPOT.EXE</div>
+      <p class="footer-tagline">
+        The world's most over-engineered implementation of RFC 2324. 
+        Built with Three.js. Useful to nobody. Compliant with everything.
+      </p>
+      <div class="footer-badge">
+        <span style="color:var(--gold)">✓</span>
+        RFC 2324 · HTCPCP/1.0 Certified
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Changelog</a>
+      <a href="#">Roadmap</a>
+      <a href="#">Status (418)</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="https://tools.ietf.org/html/rfc2324" target="_blank">RFC 2324</a>
+      <a href="#">API Reference</a>
+      <a href="#">BREW Playground</a>
+      <a href="#">Tea Ceremony Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Terms of Tea</a>
+      <a href="#">Privacy Kettle</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">No Coffee Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TEAPOT.EXE, Inc. — An Ode to Larry Masinter</span>
+    <span>HTTP 418 · All Coffee Requests Refused · Made with 🫖</span>
+  </div>
+</footer>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+
+// TICKER
+const tickerItems = [
+  'COFFEE REQUESTS REFUSED', 'RFC 2324 COMPLIANT', '418 I\'M A TEAPOT',
+  'BREW NOT SUPPORTED', 'HTCPCP/1.0 ACTIVE', 'ZERO COFFEES SERVED',
+  'SHORT & STOUT CERTIFIED', 'LARRY MASINTER APPROVED',
+  'COFFEE REQUESTS REFUSED', 'RFC 2324 COMPLIANT', '418 I\'M A TEAPOT',
+  'BREW NOT SUPPORTED', 'HTCPCP/1.0 ACTIVE', 'ZERO COFFEES SERVED',
+  'SHORT & STOUT CERTIFIED', 'LARRY MASINTER APPROVED',
+];
+const inner = document.getElementById('ticker-inner');
+inner.innerHTML = tickerItems.map(t => `<span class="ticker-item">${t}</span>`).join('');
+
+// SCROLL REVEAL
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => io.observe(el));
+
+// ─── THREE.JS TEAPOT ─────────────────────────────────────────────────
+const canvas = document.getElementById('hero-canvas');
+const wrap = canvas.parentElement;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 200);
+camera.position.set(0, 1.5, 9);
+camera.lookAt(0, 0.3, 0);
+
+function resize() {
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H;
+  camera.updateProjectionMatrix();
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Lighting
+scene.add(new THREE.AmbientLight(0xfff0d8, 0.5));
+
+const key = new THREE.PointLight(0xffe0a0, 6, 30);
+key.position.set(3, 6, 5);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.radius = 4;
+scene.add(key);
+
+const fill = new THREE.PointLight(0xa0c0ff, 2, 20);
+fill.position.set(-5, 2, -2);
+scene.add(fill);
+
+const rimLight = new THREE.PointLight(0xffd090, 3, 15);
+rimLight.position.set(0, -1, -6);
+scene.add(rimLight);
+
+// Floor / ground plane
+const floor = new THREE.Mesh(
+  new THREE.CircleGeometry(8, 64),
+  new THREE.MeshLambertMaterial({ color: 0xf0e8d8 })
+);
+floor.rotation.x = -Math.PI / 2;
+floor.position.y = -2.2;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// ── TEAPOT ──────────────────────────────────
+const teapot = new THREE.Group();
+
+// Materials
+const ceramicMat = new THREE.MeshPhongMaterial({
+  color: 0xd4956a,
+  specular: 0xfff0d8,
+  shininess: 180,
+});
+const goldMat = new THREE.MeshPhongMaterial({
+  color: 0xc9a84c,
+  specular: 0xffffcc,
+  shininess: 300,
+});
+const darkMat = new THREE.MeshPhongMaterial({
+  color: 0x8a5a30,
+  specular: 0xffd090,
+  shininess: 60,
+});
+
+// Body — slightly oblate sphere
+const bodyGeo = new THREE.SphereGeometry(1.1, 48, 32);
+bodyGeo.scale(1, 0.9, 1);
+const body = new THREE.Mesh(bodyGeo, ceramicMat);
+body.castShadow = true;
+teapot.add(body);
+
+// Belly stripe (equator ring)
+const stripe = new THREE.Mesh(
+  new THREE.TorusGeometry(1.1, 0.05, 8, 80),
+  goldMat
+);
+stripe.position.y = -0.1;
+teapot.add(stripe);
+
+// Shoulder ring
+const shoulder = new THREE.Mesh(
+  new THREE.TorusGeometry(0.72, 0.035, 8, 60),
+  goldMat
+);
+shoulder.position.y = 0.8;
+teapot.add(shoulder);
+
+// Neck
+const neck = new THREE.Mesh(
+  new THREE.CylinderGeometry(0.44, 0.62, 0.38, 32),
+  ceramicMat
+);
+neck.position.y = 1.0;
+neck.castShadow = true;
+teapot.add(neck);
+
+// Collar ring
+const collar = new THREE.Mesh(
+  new THREE.TorusGeometry(0.46, 0.03, 8, 40),
+  goldMat
+);
+collar.position.y = 1.22;
+teapot.add(collar);
+
+// Lid body
+const lidGeo = new THREE.SphereGeometry(0.44, 32, 20, 0, Math.PI * 2, 0, Math.PI * 0.55);
+const lid = new THREE.Mesh(lidGeo, ceramicMat);
+lid.position.y = 1.22;
+lid.castShadow = true;
+teapot.add(lid);
+
+// Lid knob stem
+const knobStem = new THREE.Mesh(
+  new THREE.CylinderGeometry(0.06, 0.09, 0.18, 16),
+  goldMat
+);
+knobStem.position.y = 1.72;
+teapot.add(knobStem);
+
+// Lid knob
+const knob = new THREE.Mesh(
+  new THREE.SphereGeometry(0.12, 20, 16),
+  goldMat
+);
+knob.position.y = 1.88;
+teapot.add(knob);
+
+// Spout — curved tube
+(function buildSpout() {
+  const pts = [];
+  const segments = 20;
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const x = 0.9 + t * 0.85;
+    const y = 0.0 + t * 1.2 + Math.sin(t * Math.PI * 0.5) * 0.3;
+    pts.push(new THREE.Vector3(x, y, 0));
+  }
+  const curve = new THREE.CatmullRomCurve3(pts);
+  const spoutGeo = new THREE.TubeGeometry(curve, 30, 0.14 - 0.04 * 0.5, 14, false);
+  const spout = new THREE.Mesh(spoutGeo, ceramicMat);
+  spout.castShadow = true;
+  teapot.add(spout);
+
+  // Spout tip ring
+  const tipRing = new THREE.Mesh(
+    new THREE.TorusGeometry(0.12, 0.025, 8, 24),
+    goldMat
+  );
+  const tipPos = pts[segments];
+  tipRing.position.copy(tipPos);
+  tipRing.rotation.y = Math.PI / 2;
+  teapot.add(tipRing);
+})();
+
+// Handle — elegant loop
+(function buildHandle() {
+  const pts = [];
+  const segments = 24;
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    const angle = -Math.PI * 0.8 + t * Math.PI * 1.6;
+    const radius = 1.55;
+    const x = -Math.cos(angle) * radius * 0.6 - 0.6;
+    const y = Math.sin(angle) * radius * 0.55;
+    pts.push(new THREE.Vector3(x, y, 0));
+  }
+  const curve = new THREE.CatmullRomCurve3(pts);
+  const handleGeo = new THREE.TubeGeometry(curve, 32, 0.1, 10, false);
+  const handle = new THREE.Mesh(handleGeo, darkMat);
+  handle.castShadow = true;
+  teapot.add(handle);
+})();
+
+// Base ring
+const baseRing = new THREE.Mesh(
+  new THREE.CylinderGeometry(0.7, 0.8, 0.12, 40),
+  goldMat
+);
+baseRing.position.y = -1.0;
+teapot.add(baseRing);
+
+teapot.position.y = 0.3;
+scene.add(teapot);
+
+// ── DECORATIVE FLOATING PARTICLES ──────────────────────
+const particleCount = 120;
+const pGeo = new THREE.BufferGeometry();
+const pPos = new Float32Array(particleCount * 3);
+const pSizes = new Float32Array(particleCount);
+const pLife = new Float32Array(particleCount);
+const pSpeed = new Float32Array(particleCount);
+const pAngle = new Float32Array(particleCount);
+
+function resetParticle(i) {
+  pAngle[i] = Math.random() * Math.PI * 2;
+  const r = 0.8 + Math.random() * 0.5;
+  pPos[i*3]   = Math.cos(pAngle[i]) * r * 0.25 + 1.35;
+  pPos[i*3+1] = 1.2 + Math.random() * 0.3;
+  pPos[i*3+2] = Math.sin(pAngle[i]) * r * 0.15;
+  pLife[i] = Math.random();
+  pSpeed[i] = 0.004 + Math.random() * 0.006;
+  pSizes[i] = 3 + Math.random() * 6;
+}
+for (let i = 0; i < particleCount; i++) { resetParticle(i); pPos[i*3+1] += Math.random() * 3; }
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+pGeo.setAttribute('size', new THREE.BufferAttribute(pSizes, 1));
+const pMat = new THREE.PointsMaterial({ color: 0xfff0d8, size: 0.08, transparent: true, opacity: 0.5, sizeAttenuation: true });
+const particles = new THREE.Points(pGeo, pMat);
+scene.add(particles);
+
+// ── ORBIT RINGS ──────────────────────────────────────────
+function makeOrbitRing(radius, color, tilt) {
+  const g = new THREE.TorusGeometry(radius, 0.012, 6, 80);
+  const m = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.25 });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.rotation.x = tilt;
+  return mesh;
+}
+const ring1 = makeOrbitRing(2.8, 0xc9a84c, 1.2);
+const ring2 = makeOrbitRing(3.6, 0x8a5a30, 0.4);
+const ring3 = makeOrbitRing(2.2, 0xd4956a, 0.9);
+scene.add(ring1); scene.add(ring2); scene.add(ring3);
+
+// Orbiting dots
+function makeOrbiter(radius, color, tilt, speed, phase) {
+  const mesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 10, 10),
+    new THREE.MeshPhongMaterial({ color, emissive: color, emissiveIntensity: 0.8 })
+  );
+  return { mesh, radius, tilt, speed, phase };
+}
+const orbiters = [
+  makeOrbiter(2.8, 0xc9a84c, 1.2, 0.4, 0),
+  makeOrbiter(3.6, 0xd4956a, 0.4, 0.25, 2),
+  makeOrbiter(2.2, 0xfff0d8, 0.9, 0.6, 4),
+];
+orbiters.forEach(o => scene.add(o.mesh));
+
+// ── MOUSE INTERACTION ──────────────────────────────────────
+let isDrag = false, prevX = 0, prevY = 0;
+let rotY = 0, rotX = 0, targetRotY = 0, targetRotX = 0;
+let zoomBase = 9, zoomTarget = 9;
+
+canvas.addEventListener('mousedown', e => { isDrag = true; prevX = e.clientX; prevY = e.clientY; });
+canvas.addEventListener('touchstart', e => { isDrag = true; prevX = e.touches[0].clientX; prevY = e.touches[0].clientY; }, { passive: true });
+window.addEventListener('mouseup', () => isDrag = false);
+window.addEventListener('touchend', () => isDrag = false);
+window.addEventListener('mousemove', e => {
+  if (!isDrag) return;
+  targetRotY += (e.clientX - prevX) * 0.01;
+  targetRotX += (e.clientY - prevY) * 0.005;
+  targetRotX = Math.max(-0.6, Math.min(0.6, targetRotX));
+  prevX = e.clientX; prevY = e.clientY;
+});
+window.addEventListener('touchmove', e => {
+  if (!isDrag) return;
+  targetRotY += (e.touches[0].clientX - prevX) * 0.01;
+  targetRotX += (e.touches[0].clientY - prevY) * 0.005;
+  prevX = e.touches[0].clientX; prevY = e.touches[0].clientY;
+}, { passive: true });
+canvas.addEventListener('wheel', e => {
+  zoomTarget = Math.max(4, Math.min(16, zoomTarget + e.deltaY * 0.012));
+}, { passive: true });
+
+// ── ANIMATE ──────────────────────────────────────────────────
+let time = 0;
+(function animate() {
+  requestAnimationFrame(animate);
+  time += 0.016;
+
+  // Slow auto-rotation
+  targetRotY += 0.003;
+  rotY += (targetRotY - rotY) * 0.07;
+  rotX += (targetRotX - rotX) * 0.07;
+  zoomBase += (zoomTarget - zoomBase) * 0.08;
+
+  teapot.rotation.y = rotY;
+  teapot.rotation.x = rotX;
+  teapot.position.y = 0.3 + Math.sin(time * 0.7) * 0.1;
+
+  // Rings pulse
+  ring1.rotation.z = time * 0.1;
+  ring2.rotation.z = -time * 0.07;
+  ring3.rotation.z = time * 0.13;
+  ring1.material.opacity = 0.15 + Math.sin(time * 1.2) * 0.08;
+  ring2.material.opacity = 0.12 + Math.cos(time * 0.8) * 0.06;
+  ring3.material.opacity = 0.18 + Math.sin(time * 1.5) * 0.07;
+
+  // Orbiters
+  orbiters.forEach((o, i) => {
+    const a = time * o.speed + o.phase;
+    const x = Math.cos(a) * o.radius;
+    const y = Math.sin(a * 0.3) * 0.4;
+    const z = Math.sin(a) * o.radius * Math.cos(o.tilt);
+    o.mesh.position.set(x, y, z);
+  });
+
+  // Steam particles
+  const posArr = pGeo.attributes.position.array;
+  for (let i = 0; i < particleCount; i++) {
+    posArr[i*3+1] += pSpeed[i];
+    posArr[i*3]   += Math.sin(time + i) * 0.003;
+    pLife[i] += pSpeed[i] * 0.4;
+    if (pLife[i] > 1) resetParticle(i);
+  }
+  pGeo.attributes.position.needsUpdate = true;
+  pMat.opacity = 0.35 + Math.sin(time * 2) * 0.1;
+
+  // Key light warm flicker
+  key.intensity = 5.8 + Math.sin(time * 4.1) * 0.4;
+
+  camera.position.set(0, 1.5, zoomBase);
+  camera.lookAt(0, 0.3, 0);
+
+  renderer.render(scene, camera);
+})();
+</script>
+</body>
+</html>
